@@ -15,7 +15,7 @@ const TaskList = ({ allTasks, changeBD, openEditor, delTask }) => {
               item={item}
               allTasks={allTasks}
               changeBD={changeBD}
-							openEditor={openEditor}
+              openEditor={openEditor}
             />
           );
         } else {

@@ -59,7 +59,7 @@ const App = () => {
         allTasks={allTasks}
         changeBD={changeBD}
         openEditor={openEditor}
-				delTask={delTask}
+        delTask={delTask}
       />
     </>
   );

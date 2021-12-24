@@ -10,9 +10,11 @@ const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
   const [nameNew, setName] = useState(name);
   const [textNew, setText] = useState(text);
 
-  const updateBD = (index) => {
-		allTasks[index].name = name.trim()
-    changeBD(index);
+  const updateBD = (id) => {
+    allTasks[id].name = name.trim();
+    allTasks[id].text = text.trim();
+    allTasks[id].editor = !allTasks[id].editor;
+    changeBD(id);
   };
 
   return (
@@ -33,7 +35,7 @@ const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
         onChange={(event) => setText(event.target.value.trim())}
       />
       <div className="edit">
-        <img src={good} onClick={() => changeBD(index)} />
+        <img src={good} onClick={() => updateBD(index)} />
         <img src={close} onClick={() => openEditor(index)} />
       </div>
     </div>
