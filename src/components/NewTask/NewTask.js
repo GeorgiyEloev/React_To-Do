@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./NewTask.scss";
 import axios from "axios";
+import "./NewTask.scss";
 
-const NewTask = ({ setAllTasks }) => {
+const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
   const [name, setName] = useState("");
   const [text, setText] = useState("");
 
@@ -17,7 +17,7 @@ const NewTask = ({ setAllTasks }) => {
         .then((res) => {
           setText("");
           setName("");
-          setAllTasks(res.data.data);
+          setAllTasks(sortAndAddEditor(res.data.data));
         });
     } else {
       alert('Поле "Задача" пустое!!!');
@@ -26,7 +26,7 @@ const NewTask = ({ setAllTasks }) => {
 
   const delAllTasks = async () => {
     await axios.delete("http://localhost:8000/delAllTasks").then((res) => {
-      setAllTasks([]);
+      setAllTasks(sortAndAddEditor(res.data.data));
     });
   };
 

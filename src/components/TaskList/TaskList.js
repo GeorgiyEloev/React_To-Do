@@ -1,7 +1,7 @@
 import React from "react";
-import "./TaskList.scss";
 import Task from "../Task/Task";
 import EditTask from "../EditTask/EditTask";
+import "./TaskList.scss";
 
 const TaskList = ({ allTasks, changeBD, openEditor, delTask }) => {
   return (

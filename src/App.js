@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import NewTask from "./components/NewTask/NewTask";
 import TaskList from "./components/TaskList/TaskList";
 
@@ -54,7 +54,7 @@ const App = () => {
 
   return (
     <>
-      <NewTask setAllTasks={setAllTasks} />
+      <NewTask setAllTasks={setAllTasks} sortAndAddEditor={sortAndAddEditor} />
       <TaskList
         allTasks={allTasks}
         changeBD={changeBD}

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import good from "../../img/good.png";
 import close from "../../img/close.png";
-import "../Task/Task.scss";
 import "./EditTask.scss";
+import "../Task/Task.scss";
 
 const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
-  const { _id, name, text, isCheck } = item;
-
   const [nameNew, setName] = useState(name);
   const [textNew, setText] = useState(text);
+
+  const { _id, name, text, isCheck } = item;
 
   const updateBD = (id) => {
     allTasks[id].name = name.trim();
