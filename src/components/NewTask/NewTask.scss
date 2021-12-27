@@ -29,6 +29,13 @@
   p {
     margin-left: 5px;
   }
+
+  textarea {
+    resize: vertical;
+    height: 15px;
+    min-height: 15px;
+    max-height: 45px;
+  }
 }
 
 @media (max-width: 798px) {
@@ -44,7 +51,7 @@
     margin: 0;
   }
 
-  .new-task input {
+  .new-task textarea {
     margin-bottom: 5px;
   }
 }

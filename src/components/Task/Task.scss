@@ -39,3 +39,9 @@
   color: rgba(0, 0, 0, 0.7);
   text-decoration: line-through;
 }
+
+@media (max-width: 360px) {
+  .page {
+    width: 90%;
+  }
+}
