@@ -49,6 +49,10 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
             onChange={(event) =>
               dataEdit({ name: event.target.value, text: text })
             }
+						keyUp={() =>{
+							this.style.height = "15px";
+							this.style.height = (this.scrollHeight + 15)+"px";
+						}}
           />
           <p>Описание:</p>
           <textarea
