@@ -3,8 +3,12 @@ import axios from "axios";
 import "./NewTask.scss";
 
 const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
-  const [name, setName] = useState("");
-  const [text, setText] = useState("");
+  const [dataNew, dataEdit] = useState({
+    name: "",
+    text: "",
+  });
+
+  const { name, text } = dataNew;
 
   const addTask = async () => {
     if (name.trim()) {
@@ -15,8 +19,10 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
           isCheck: false,
         })
         .then((res) => {
-          setText("");
-          setName("");
+          dataEdit({
+            name: "",
+            text: "",
+          });
           setAllTasks(sortAndAddEditor(res.data.data));
         });
     } else {
@@ -40,14 +46,18 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
             value={name}
             type="text"
             id="add-name"
-            onChange={(event) => setName(event.target.value.trim())}
+            onChange={(event) =>
+              dataEdit({ name: event.target.value, text: text })
+            }
           />
           <p>Описание:</p>
           <input
             value={text}
             type="text"
             id="add-task"
-            onChange={(event) => setText(event.target.value.trim())}
+            onChange={(event) =>
+              dataEdit({ name: name, text: event.target.value })
+            }
           />
         </div>
         <button onClick={() => addTask()}>Add</button>
