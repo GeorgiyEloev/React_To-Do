@@ -13,18 +13,22 @@ const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
   const { name, text } = dataNew;
 
   const updateBD = (id) => {
-    allTasks[id].name = name.trim();
-    allTasks[id].text = text.trim();
-    allTasks[id].editor = !allTasks[id].editor;
-    changeBD(id);
+    if (name.trim()) {
+      allTasks[id].name = name.trim();
+      allTasks[id].text = text.trim() ? text.trim() : "Описание отсутствует";
+      allTasks[id].editor = !allTasks[id].editor;
+      changeBD(id);
+    } else {
+      alert('Поле "Задача" пустое!!!');
+    }
   };
 
   return (
     <div className="page">
       <div className="editName">
         <h2>Change:</h2>
-        <input
-          type="text"
+        <textarea
+          rows="2"
           className="sizeName"
           value={name}
           onChange={(event) =>
@@ -32,12 +36,27 @@ const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
           }
         />
       </div>
-      <input
-        type="text"
-        className="editText"
-        value={text}
-        onChange={(event) => dataEdit({ name: name, text: event.target.value })}
-      />
+
+      {text.trim() === "Описание отсутствует" ? (
+        <textarea
+          rows="4"
+          className="editText"
+          placeholder={text}
+          onChange={(event) =>
+            dataEdit({ name: name, text: event.target.value })
+          }
+        />
+      ) : (
+        <textarea
+          rows="4"
+          className="editText"
+          value={text}
+          onChange={(event) =>
+            dataEdit({ name: name, text: event.target.value })
+          }
+        />
+      )}
+
       <div className="edit">
         <img src={good} onClick={() => updateBD(index)} />
         <img src={close} onClick={() => openEditor(index)} />

@@ -14,7 +14,7 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
     if (name.trim()) {
       await axios
         .post("http://localhost:8000/createTask", {
-          name,
+          name: name.trim(),
           text: !text.trim() ? "Описание отсутствует" : text,
           isCheck: false,
         })
@@ -42,18 +42,18 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
       <div className="newAdd">
         <div className="new-task">
           <p>Задача:</p>
-          <input
+          <textarea
+            rows="3"
             value={name}
-            type="text"
             id="add-name"
             onChange={(event) =>
               dataEdit({ name: event.target.value, text: text })
             }
           />
           <p>Описание:</p>
-          <input
+          <textarea
+            rows="3"
             value={text}
-            type="text"
             id="add-task"
             onChange={(event) =>
               dataEdit({ name: name, text: event.target.value })

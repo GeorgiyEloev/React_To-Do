@@ -26,6 +26,7 @@ h1 {
   color: #b72328;
   margin-top: 0;
   margin-bottom: 5px;
+
 }
 
 button {
@@ -34,6 +35,31 @@ button {
 
 h2 {
   margin: 0;
+	overflow-wrap: anywhere;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+h2:hover, p:hover {
+	overflow: none;
+	text-overflow: none;
+	display: block;
+	-webkit-line-clamp: none;
+	-webkit-box-orient: none;
+}
+
+p {
+	overflow-wrap: anywhere;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
 }
 
 code {
