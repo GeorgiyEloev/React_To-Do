@@ -5,10 +5,12 @@ import "./EditTask.scss";
 import "../Task/Task.scss";
 
 const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
-  const [nameNew, setName] = useState(name);
-  const [textNew, setText] = useState(text);
+  const [dataNew, dataEdit] = useState({
+    name: item.name,
+    text: item.text,
+  });
 
-  const { _id, name, text, isCheck } = item;
+  const { name, text } = dataNew;
 
   const updateBD = (id) => {
     allTasks[id].name = name.trim();
@@ -24,15 +26,17 @@ const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
         <input
           type="text"
           className="sizeName"
-          value={nameNew}
-          onChange={(event) => setName(event.target.value.trim())}
+          value={name}
+          onChange={(event) =>
+            dataEdit({ name: event.target.value, text: text })
+          }
         />
       </div>
       <input
         type="text"
         className="editText"
-        value={textNew}
-        onChange={(event) => setText(event.target.value.trim())}
+        value={text}
+        onChange={(event) => dataEdit({ name: name, text: event.target.value })}
       />
       <div className="edit">
         <img src={good} onClick={() => updateBD(index)} />

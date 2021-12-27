@@ -25,7 +25,11 @@ const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
           <h2 className="done-task">{name}</h2>
           <p className="text-task done-task">{text}</p>
           <div className="edit">
-            <img src= {edit} onClick= {() => openEditor(index)} className = "delImg" />
+            <img
+              src={edit}
+              onClick={() => openEditor(index)}
+              className="delImg"
+            />
             <input {...paramCheck} />
             <img src={delet} onClick={() => delTask(index)} />
           </div>
@@ -35,7 +39,7 @@ const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
           <h2>{name}</h2>
           <p className="text-task">{text}</p>
           <div className="edit">
-            <img src= {edit} onClick= {() => openEditor(index)} />
+            <img src={edit} onClick={() => openEditor(index)} />
             <input {...paramCheck} />
             <img src={delet} onClick={() => delTask(index)} />
           </div>
