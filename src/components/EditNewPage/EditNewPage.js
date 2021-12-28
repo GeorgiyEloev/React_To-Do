@@ -27,15 +27,17 @@ const EditNewPage = ({ setAllTasks, sortAndAddEditor }) => {
   const changeBDNew = async () => {
     const { _id, name, text, isCheck } = item;
     if (name.trim()) {
-      await axios.patch("http://localhost:8000/updateTask", {
-        _id,
-        name: name.trim(),
-        text: !text.trim() ? "Описание отсутствует" : text,
-        isCheck,
-      }).then(res => {
-				setAllTasks(sortAndAddEditor(res.data.data));
-			});
-      history.push("/main");	
+      await axios
+        .patch("http://localhost:8000/updateTask", {
+          _id,
+          name: name.trim(),
+          text: !text.trim() ? "Описание отсутствует" : text,
+          isCheck,
+        })
+        .then((res) => {
+          setAllTasks(sortAndAddEditor(res.data.data));
+        });
+      history.push("/main");
     } else {
       alert('Поле "Задача" пустое!!!');
     }

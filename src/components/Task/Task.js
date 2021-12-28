@@ -5,7 +5,7 @@ import delet from "../../img/delet.png";
 import "./Task.scss";
 
 const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
-	let history = useHistory();
+  let history = useHistory();
 
   const { _id, name, text, isCheck, value } = item;
 
