@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
-import NewTask from "./components/NewTask/NewTask";
-import TaskList from "./components/TaskList/TaskList";
+import MainPage from "./components/Main/MainPage";
+import EditNewPage from "./components/EditNewPage/EditNewPage";
 
 const App = () => {
   const [allTasks, setAllTasks] = useState([]);
@@ -53,15 +54,25 @@ const App = () => {
   };
 
   return (
-    <>
-      <NewTask setAllTasks={setAllTasks} sortAndAddEditor={sortAndAddEditor} />
-      <TaskList
-        allTasks={allTasks}
-        changeBD={changeBD}
-        openEditor={openEditor}
-        delTask={delTask}
-      />
-    </>
+    <Switch>
+      <Route path="/main">
+        <MainPage
+          allTasks={allTasks}
+          changeBD={changeBD}
+          openEditor={openEditor}
+          delTask={delTask}
+          setAllTasks={setAllTasks}
+          sortAndAddEditor={sortAndAddEditor}
+        />
+      </Route>
+      <Route path="/edit/:id">
+        <EditNewPage
+          setAllTasks={setAllTasks}
+          sortAndAddEditor={sortAndAddEditor}
+        />
+      </Route>
+      <Redirect from="" to="/main" />
+    </Switch>
   );
 };
 

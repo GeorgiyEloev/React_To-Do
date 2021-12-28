@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import edit from "../../img/edit.png";
 import delet from "../../img/delet.png";
 import "./Task.scss";
 
 const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
+	let history = useHistory();
+
   const { _id, name, text, isCheck, value } = item;
 
   const paramCheck = {
@@ -16,6 +19,10 @@ const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
   const onChangeCheckbox = (index) => {
     allTasks[index].isCheck = !allTasks[index].isCheck;
     changeBD(index);
+  };
+
+  const editRedirect = (id) => {
+    history.push(`/edit/${id}`);
   };
 
   return (
@@ -35,7 +42,7 @@ const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
           </div>
         </div>
       ) : (
-        <div className="page">
+        <div className="page" onDoubleClick={() => editRedirect(_id)}>
           <h2>{name}</h2>
           <p className="text-task">{text}</p>
           <div className="edit">
