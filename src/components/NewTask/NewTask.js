@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./NewTask.scss";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import "./NewTask.scss";
 
 const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
   const [dataNew, dataEdit] = useState({
