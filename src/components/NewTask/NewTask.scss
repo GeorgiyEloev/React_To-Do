@@ -29,13 +29,13 @@
   p {
     margin-left: 5px;
   }
+}
 
-  textarea {
-    resize: vertical;
-    height: 15px;
-    min-height: 15px;
-    max-height: 45px;
-  }
+.text-array {
+  resize: none;
+  height: 15px;
+  min-height: 15px;
+  max-height: 45px;
 }
 
 @media (max-width: 798px) {

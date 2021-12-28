@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 import "./NewTask.scss";
 
 const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
@@ -42,19 +43,21 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
       <div className="newAdd">
         <div className="new-task">
           <p>Задача:</p>
-          <textarea
-            rows="3"
+          <TextareaAutosize
+            maxRows={3}
             value={name}
             id="add-name"
+            className="text-array"
             onChange={(event) =>
               dataEdit({ name: event.target.value, text: text })
             }
           />
           <p>Описание:</p>
-          <textarea
-            rows="3"
+          <TextareaAutosize
+            maxRows={3}
             value={text}
             id="add-task"
+            className="text-array"
             onChange={(event) =>
               dataEdit({ name: name, text: event.target.value })
             }
