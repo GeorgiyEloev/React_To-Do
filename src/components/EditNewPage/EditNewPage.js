@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
+import axios from "axios";
 import good from "../../img/good.png";
 import close from "../../img/close.png";
 import "./EditNewPage.scss";
