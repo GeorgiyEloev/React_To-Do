@@ -1,42 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import good from "../../img/good.png";
 import close from "../../img/close.png";
 import "./EditNewPage.scss";
 
-const EditNewPage = ({ setAllTasks, sortAndAddEditor }) => {
-  const [item, setItem] = useState({
-    _id: "",
-    name: "",
-    text: "",
-    isCheck: false,
-  });
-  let history = useHistory();
+const EditNewPage = ({ sortAndAddEditor }) => {
+  const dispatch = useDispatch();
+
+  const task = useSelector((state) => state.task);
+
+  const { name, text } = task;
+
+  const history = useHistory();
 
   const { id } = useParams();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    await axios.get(`http://localhost:8000/oneTask?_id=${id}`).then((res) => {
-      setItem(res.data.data);
+    await axios.get(`http://localhost:9000/oneTask?_id=${id}`).then((res) => {
+      const { name, text } = res.data.data;
+      dispatch({
+        type: "TASK",
+        playload: { name, text },
+      });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { _id, name, text, isCheck } = item;
-
   const changeBDNew = async () => {
-    const { _id, name, text, isCheck } = item;
     if (name.trim()) {
       await axios
-        .patch("http://localhost:8000/updateTask", {
-          _id,
+        .patch("http://localhost:9000/updateTask", {
+          _id: id,
           name: name.trim(),
           text: !text.trim() ? "Описание отсутствует" : text,
-          isCheck,
+          isCheck: false,
         })
         .then((res) => {
-          setAllTasks(sortAndAddEditor(res.data.data));
+          dispatch({
+            type: "ADD_CASH",
+            playload: sortAndAddEditor(res.data.data),
+          });
         });
+      dispatch({
+        type: "TASK",
+        playload: { name: "", text: "" },
+      });
       history.push("/main");
     } else {
       alert('Поле "Задача" пустое!!!');
@@ -52,7 +63,10 @@ const EditNewPage = ({ setAllTasks, sortAndAddEditor }) => {
           className="sizeName"
           value={name}
           onChange={(event) =>
-            setItem({ _id, name: event.target.value, text, isCheck })
+            dispatch({
+              type: "TASK",
+              playload: { name: event.target.value, text },
+            })
           }
         />
       </div>
@@ -63,7 +77,10 @@ const EditNewPage = ({ setAllTasks, sortAndAddEditor }) => {
           className="editText"
           placeholder={text}
           onChange={(event) =>
-            setItem({ _id, name, text: event.target.value, isCheck })
+            dispatch({
+              type: "TASK",
+              playload: { name, text: event.target.value },
+            })
           }
         />
       ) : (
@@ -72,14 +89,27 @@ const EditNewPage = ({ setAllTasks, sortAndAddEditor }) => {
           className="editText"
           value={text}
           onChange={(event) =>
-            setItem({ _id, name, text: event.target.value, isCheck })
+            dispatch({
+              type: "TASK",
+              playload: { name, text: event.target.value },
+            })
           }
         />
       )}
 
       <div className="edit">
-        <img src={good} onClick={() => changeBDNew()} />
-        <img src={close} onClick={() => history.push("/main")} />
+        <img src={good} onClick={() => changeBDNew()} alt="" />
+        <img
+          src={close}
+          onClick={() => {
+            dispatch({
+              type: "TASK",
+              playload: { name: "", text: "" },
+            });
+            history.push("/main");
+          }}
+          alt=""
+        />
       </div>
     </div>
   );

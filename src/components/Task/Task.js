@@ -7,7 +7,7 @@ import "./Task.scss";
 const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
   let history = useHistory();
 
-  const { _id, name, text, isCheck, value } = item;
+  const { _id, name, text, isCheck } = item;
 
   const paramCheck = {
     type: "checkbox",
@@ -36,9 +36,10 @@ const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
               src={edit}
               onClick={() => openEditor(index)}
               className="delImg"
+              alt="delete"
             />
             <input {...paramCheck} />
-            <img src={delet} onClick={() => delTask(index)} />
+            <img src={delet} onClick={() => delTask(index)} alt="delete" />
           </div>
         </div>
       ) : (
@@ -46,9 +47,9 @@ const Task = ({ index, item, allTasks, changeBD, openEditor, delTask }) => {
           <h2>{name}</h2>
           <p className="text-task">{text}</p>
           <div className="edit">
-            <img src={edit} onClick={() => openEditor(index)} />
+            <img src={edit} onClick={() => openEditor(index)} alt="" />
             <input {...paramCheck} />
-            <img src={delet} onClick={() => delTask(index)} />
+            <img src={delet} onClick={() => delTask(index)} alt="" />
           </div>
         </div>
       )}
