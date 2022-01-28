@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import "./NewTask.scss";
 
-const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
-  const [dataNew, dataEdit] = useState({
-    name: "",
-    text: "",
-  });
+const NewTask = ({ sortAndAddEditor }) => {
+  const dispatch = useDispatch();
 
-  const { name, text } = dataNew;
+  const task = useSelector((state) => state.task);
+
+  const { name, text } = task;
 
   const addTask = async () => {
     if (name.trim()) {
@@ -20,11 +20,17 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
           isCheck: false,
         })
         .then((res) => {
-          dataEdit({
-            name: "",
-            text: "",
+          dispatch({
+            type: "TASK",
+            playload: {
+              name: "",
+              text: "",
+            },
           });
-          setAllTasks(sortAndAddEditor(res.data.data));
+          dispatch({
+            type: "ADD_CASH",
+            playload: sortAndAddEditor(res.data.data),
+          });
         });
     } else {
       alert('Поле "Задача" пустое!!!');
@@ -33,7 +39,7 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
 
   const delAllTasks = async () => {
     await axios.delete("http://localhost:9000/delAllTasks").then((res) => {
-      setAllTasks(sortAndAddEditor(res.data.data));
+      dispatch({ type: "ADD_CASH", playload: sortAndAddEditor(res.data.data) });
     });
   };
 
@@ -49,7 +55,10 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
             id="add-name"
             className="text-array"
             onChange={(event) =>
-              dataEdit({ name: event.target.value, text: text })
+              dispatch({
+                type: "TASK",
+                playload: { name: event.target.value, text },
+              })
             }
           />
           <p>Описание:</p>
@@ -59,7 +68,10 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
             id="add-task"
             className="text-array"
             onChange={(event) =>
-              dataEdit({ name: name, text: event.target.value })
+              dispatch({
+                type: "TASK",
+                playload: { name, text: event.target.value },
+              })
             }
           />
         </div>

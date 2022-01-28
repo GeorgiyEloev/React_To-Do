@@ -7,12 +7,11 @@ const MainPage = ({
   changeBD,
   openEditor,
   delTask,
-  setAllTasks,
   sortAndAddEditor,
 }) => {
   return (
     <>
-      <NewTask setAllTasks={setAllTasks} sortAndAddEditor={sortAndAddEditor} />
+      <NewTask sortAndAddEditor={sortAndAddEditor} />
       <TaskList
         allTasks={allTasks}
         changeBD={changeBD}

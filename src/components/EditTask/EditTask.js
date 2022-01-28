@@ -58,8 +58,8 @@ const EditTask = ({ index, item, allTasks, changeBD, openEditor }) => {
       )}
 
       <div className="edit">
-        <img src={good} onClick={() => updateBD(index)} />
-        <img src={close} onClick={() => openEditor(index)} />
+        <img src={good} onClick={() => updateBD(index)} alt="edit" />
+        <img src={close} onClick={() => openEditor(index)} alt="close" />
       </div>
     </div>
   );

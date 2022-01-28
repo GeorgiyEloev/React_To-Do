@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import MainPage from "./components/Main/MainPage";
 import EditNewPage from "./components/EditNewPage/EditNewPage";
+import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
-  const [allTasks, setAllTasks] = useState([]);
+  const dispatch = useDispatch();
+
+  const allTasks = useSelector((state) => state.allTasks);
+  console.log(allTasks);
 
   const sortAndAddEditor = (tasks) => {
     let newAllTasks = tasks;
 
-    newAllTasks.map((task) => {
-      task.editor = false;
-    });
+    newAllTasks.map((task) => (task.editor = false));
     newAllTasks = newAllTasks.sort((obj1, obj2) => {
       return obj1.isCheck - obj2.isCheck;
     });
@@ -22,9 +25,9 @@ const App = () => {
 
   useEffect(async () => {
     await axios.get("http://localhost:9000/allTasks").then((res) => {
-      setAllTasks(sortAndAddEditor(res.data.data));
+      dispatch({ type: "ADD_CASH", playload: sortAndAddEditor(res.data.data) });
     });
-  }, []);
+  }, [1]);
 
   const changeBD = async (index) => {
     const { _id, name, text, isCheck } = allTasks[index];
@@ -36,20 +39,26 @@ const App = () => {
         isCheck,
       })
       .then((res) => {
-        setAllTasks(sortAndAddEditor(res.data.data));
+        dispatch({
+          type: "ADD_CASH",
+          playload: sortAndAddEditor(res.data.data),
+        });
       });
   };
 
   const openEditor = (index) => {
     allTasks[index].editor = !allTasks[index].editor;
-    setAllTasks([...allTasks]);
+    dispatch({ type: "ADD_CASH", playload: [...allTasks] });
   };
 
   const delTask = async (index) => {
     await axios
       .delete(`http://localhost:9000/deleteTask?_id=${allTasks[index]._id}`)
       .then((res) => {
-        setAllTasks(sortAndAddEditor(res.data.data));
+        dispatch({
+          type: "ADD_CASH",
+          playload: sortAndAddEditor(res.data.data),
+        });
       });
   };
 
@@ -61,13 +70,11 @@ const App = () => {
           changeBD={changeBD}
           openEditor={openEditor}
           delTask={delTask}
-          setAllTasks={setAllTasks}
           sortAndAddEditor={sortAndAddEditor}
         />
       </Route>
       <Route path="/edit/:id">
         <EditNewPage
-          setAllTasks={setAllTasks}
           sortAndAddEditor={sortAndAddEditor}
         />
       </Route>
