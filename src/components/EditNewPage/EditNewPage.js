@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import good from "../../img/good.png";
 import close from "../../img/close.png";
@@ -10,7 +10,6 @@ const EditNewPage = ({ sortAndAddEditor }) => {
   const dispatch = useDispatch();
 
   const task = useSelector((state) => state.task);
-  console.log(task);
 
   const { name, text } = task;
 
@@ -66,7 +65,7 @@ const EditNewPage = ({ sortAndAddEditor }) => {
           onChange={(event) =>
             dispatch({
               type: "TASK",
-              playload: { name: event.target.value + "", text },
+              playload: { name: event.target.value, text },
             })
           }
         />
@@ -80,7 +79,7 @@ const EditNewPage = ({ sortAndAddEditor }) => {
           onChange={(event) =>
             dispatch({
               type: "TASK",
-              playload: { name, text: event.target.value + "" },
+              playload: { name, text: event.target.value },
             })
           }
         />
@@ -92,7 +91,7 @@ const EditNewPage = ({ sortAndAddEditor }) => {
           onChange={(event) =>
             dispatch({
               type: "TASK",
-              playload: { name, text: event.target.value + "" },
+              playload: { name, text: event.target.value },
             })
           }
         />

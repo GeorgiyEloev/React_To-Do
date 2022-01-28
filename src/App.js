@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import MainPage from "./components/Main/MainPage";
 import EditNewPage from "./components/EditNewPage/EditNewPage";
-import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const allTasks = useSelector((state) => state.allTasks);
-  console.log(allTasks);
 
   const sortAndAddEditor = (tasks) => {
     let newAllTasks = tasks;
@@ -74,9 +73,7 @@ const App = () => {
         />
       </Route>
       <Route path="/edit/:id">
-        <EditNewPage
-          sortAndAddEditor={sortAndAddEditor}
-        />
+        <EditNewPage sortAndAddEditor={sortAndAddEditor} />
       </Route>
       <Redirect from="" to="/main" />
     </Switch>

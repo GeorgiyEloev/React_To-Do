@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createStore } from "redux";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
-import { Provider } from "react-redux";
 
 const defaultState = {
   allTasks: [],
@@ -19,8 +19,8 @@ const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case "ADD_CASH":
       return { ...state, allTasks: action.playload };
-			case "TASK":
-				return { ...state, task: action.playload };
+    case "TASK":
+      return { ...state, task: action.playload };
     default:
       return state;
   }
