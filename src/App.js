@@ -21,7 +21,7 @@ const App = () => {
   };
 
   useEffect(async () => {
-    await axios.get("http://localhost:8000/allTasks").then((res) => {
+    await axios.get("http://localhost:9000/allTasks").then((res) => {
       setAllTasks(sortAndAddEditor(res.data.data));
     });
   }, []);
@@ -29,7 +29,7 @@ const App = () => {
   const changeBD = async (index) => {
     const { _id, name, text, isCheck } = allTasks[index];
     await axios
-      .patch("http://localhost:8000/updateTask", {
+      .patch("http://localhost:9000/updateTask", {
         _id,
         name,
         text,
@@ -47,7 +47,7 @@ const App = () => {
 
   const delTask = async (index) => {
     await axios
-      .delete(`http://localhost:8000/deleteTask?_id=${allTasks[index]._id}`)
+      .delete(`http://localhost:9000/deleteTask?_id=${allTasks[index]._id}`)
       .then((res) => {
         setAllTasks(sortAndAddEditor(res.data.data));
       });

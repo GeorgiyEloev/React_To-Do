@@ -17,7 +17,7 @@ const EditNewPage = ({ setAllTasks, sortAndAddEditor }) => {
   const { id } = useParams();
 
   useEffect(async () => {
-    await axios.get(`http://localhost:8000/oneTask?_id=${id}`).then((res) => {
+    await axios.get(`http://localhost:9000/oneTask?_id=${id}`).then((res) => {
       setItem(res.data.data);
     });
   }, []);
@@ -28,7 +28,7 @@ const EditNewPage = ({ setAllTasks, sortAndAddEditor }) => {
     const { _id, name, text, isCheck } = item;
     if (name.trim()) {
       await axios
-        .patch("http://localhost:8000/updateTask", {
+        .patch("http://localhost:9000/updateTask", {
           _id,
           name: name.trim(),
           text: !text.trim() ? "Описание отсутствует" : text,

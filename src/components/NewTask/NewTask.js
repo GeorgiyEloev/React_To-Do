@@ -14,7 +14,7 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
   const addTask = async () => {
     if (name.trim()) {
       await axios
-        .post("http://localhost:8000/createTask", {
+        .post("http://localhost:9000/createTask", {
           name: name.trim(),
           text: !text.trim() ? "Описание отсутствует" : text,
           isCheck: false,
@@ -32,7 +32,7 @@ const NewTask = ({ setAllTasks, sortAndAddEditor }) => {
   };
 
   const delAllTasks = async () => {
-    await axios.delete("http://localhost:8000/delAllTasks").then((res) => {
+    await axios.delete("http://localhost:9000/delAllTasks").then((res) => {
       setAllTasks(sortAndAddEditor(res.data.data));
     });
   };
